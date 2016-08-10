@@ -143,7 +143,8 @@ fi
 cd $BUILD_DIR
 status "Building Package..."
 #swift build --configuration release | indent
-swift build --configuration release -Xcc -fblocks -Xcc -I$BUILD_DIR/.apt/usr/include -Xlinker -L$BUILD_DIR/.apt/usr/lib -Xlinker -L$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu -Xlinker -rpath=$BUILD_DIR/.apt/usr/lib | indent
+# Swift 2016-05-09 has problems compiling code in the release configuration. Restore the configuration to "release" once we're using a more recent Swift compiler.
+swift build --configuration debug -Xcc -fblocks -Xcc -I$BUILD_DIR/.apt/usr/include -Xlinker -L$BUILD_DIR/.apt/usr/lib -Xlinker -L$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu -Xlinker -rpath=$BUILD_DIR/.apt/usr/lib | indent
 
 # These should be statically linked, seems a Swift bug.
 status "Copying dynamic libraries"
